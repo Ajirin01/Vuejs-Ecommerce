@@ -75,19 +75,29 @@ export default createStore({
       }
       // Add more products if needed
     ], // Store your products here, replace this with your actual product data
+    cart: [],
     selectedProduct: null // Store the selected product details
   },
   mutations: {
     setSelectedProduct(state, productId) {
       // Find the product based on productId and set it as the selected product
       state.selectedProduct = state.products.find(product => product.id === productId);
+    },
+
+    addToCart(state, item){
+      state.cart.push(item)
     }
     // Other mutations if needed
   },
   actions: {
     selectProduct({ commit }, productId) {
       commit('setSelectedProduct', productId);
+    },
+
+    ADD_TO_CART({ commit }, product) {
+      commit('addToCart', product);
     }
+
     // Other actions if needed
   },
   getters: {

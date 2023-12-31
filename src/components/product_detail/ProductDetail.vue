@@ -51,6 +51,12 @@ export default {
       // Logic to add the product to the cart
       // You may emit an event to inform the parent component about adding this product to the cart
       console.log(`Added ${this.quantity} ${this.product.name}(s) to cart`);
+      let cartItem = {
+        product_id: this.product.id,
+        quantity: this.quantity
+      }
+      this.$store.dispatch('ADD_TO_CART', cartItem)
+      console.log(this.$store.state.cart)
     },
     increaseQuantity() {
       this.quantity++;

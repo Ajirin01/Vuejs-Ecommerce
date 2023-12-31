@@ -15,6 +15,8 @@
             <li>
                 <router-link :to="'/about'">About</router-link>
             </li>
+
+            <MiniCart />
           <!-- Add other menu items -->
         </ul>
       </div>
@@ -24,12 +26,16 @@
 </template>
 
 <script>
-  export default {
-    name: 'NavBar',
-    props: {
-      msg: String
+    import MiniCart from './MiniCart.vue';
+    export default {
+        name: 'NavBar',
+        props: {
+            msg: String
+        },
+        components: {
+            MiniCart // Register the MiniCart component
+        }
     }
-  }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
