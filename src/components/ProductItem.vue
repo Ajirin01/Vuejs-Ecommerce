@@ -6,11 +6,10 @@
         <img :src="product.imageUrl" alt="Product Image">
         <span class="card-title">{{ product.name }}</span>
         <div class="overlay" v-if="showOverlay">
-            <router-link :to="'/product/' + product.id" class="rounded">
-                <button class="add-to-cart-btn waves-effect waves-light btn rounded" @click="addToCart">
-                Add to Cart
-                </button>
+            <router-link :to="'/product/' + product.id" class="btn-floating pulse">
+                <i class="material-icons">remove_red_eye</i>
             </router-link>
+            <a class="btn-floating pulse" @click="addToCart(product.id)"><i class="material-icons">add_shopping_cart</i></a>
         </div>
 
       </div>
@@ -38,10 +37,14 @@ export default {
     };
   },
   methods: {
-    addToCart() {
-      // Logic to add the product to the cart
-      // You may emit an event to inform the parent component about adding this product to the cart
-    }
+    addToCart(productId) {
+      let cartItem = {
+        product_id: productId,
+        quantity: 1
+      }
+      this.$store.dispatch('ADD_TO_CART', cartItem)
+      console.log(this.$store.state.cart)
+    },
   }
   // Other logic for the component
 }
@@ -69,7 +72,7 @@ export default {
   background-color: rgba(0, 0, 0, 0.7); /* Adjust the opacity and color of the overlay */
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
   opacity: 0;
   transition: opacity 0.3s ease;
   border-radius: 10px; /* Rounded edges for the overlay */

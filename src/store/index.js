@@ -1,4 +1,10 @@
 import { createStore } from 'vuex'
+// Inside your Vue component or main.js (or main entry point)
+import 'materialize-css/dist/css/materialize.min.css'; // Import Materialize CSS
+
+// Import Materialize JS or specific components as needed
+import M from 'materialize-css/dist/js/materialize.min.js'; // Import Materialize JS
+
 
 export default createStore({
   state: {
@@ -84,8 +90,26 @@ export default createStore({
       state.selectedProduct = state.products.find(product => product.id === productId);
     },
 
-    addToCart(state, item){
-      state.cart.push(item)
+    addToCart(state, newItem) {
+      const existingItem = state.cart.find(item => item.product_id === newItem.product_id);
+  
+      if (existingItem) {
+        // If the item already exists in the cart, update its quantity
+        existingItem.quantity += newItem.quantity;
+      } else {
+        // If the item doesn't exist, push the new item to the cart
+        state.cart.push(newItem);
+      }
+
+      M.toast({html: "Item Successfully added to cart!"});
+    },
+
+    removeFromCart(state, productId) {
+      const index = state.cart.findIndex(item => item.product_id === productId);
+      if (index !== -1) {
+        state.cart.splice(index, 1);
+      }
+      M.toast({html: "Item Successfully removed!"});
     }
     // Other mutations if needed
   },
@@ -96,6 +120,10 @@ export default createStore({
 
     ADD_TO_CART({ commit }, product) {
       commit('addToCart', product);
+    },
+
+    REMOVE_FROM_CART({commit}, productId) {
+      commit('removeFromCart', productId);
     }
 
     // Other actions if needed

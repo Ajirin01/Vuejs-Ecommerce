@@ -40,8 +40,8 @@ export default {
     },
 
     price( ){
-        console.log(this.product.price)
-        console.log(this.quantity)
+        // console.log(this.product.price)
+        // console.log(this.quantity)
         return this.product.price * this.quantity
     }
   },
@@ -50,7 +50,7 @@ export default {
     addToCart() {
       // Logic to add the product to the cart
       // You may emit an event to inform the parent component about adding this product to the cart
-      console.log(`Added ${this.quantity} ${this.product.name}(s) to cart`);
+    //   console.log(`Added ${this.quantity} ${this.product.name}(s) to cart`);
       let cartItem = {
         product_id: this.product.id,
         quantity: this.quantity
