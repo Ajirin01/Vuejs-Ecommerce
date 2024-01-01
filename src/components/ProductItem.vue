@@ -15,7 +15,7 @@
       </div>
       <div class="card-content">
         <p>{{ product.description }}</p>
-        <p>Price: ${{ product.price }}</p>
+        <p>Price: ₦{{ product.price }}</p>
       </div>
       <!-- Other Material Design components for actions, buttons, etc. -->
     </div>

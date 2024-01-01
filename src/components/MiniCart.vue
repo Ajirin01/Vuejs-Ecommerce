@@ -1,6 +1,6 @@
 <template>
   <div class="mini-cart">
-    <span class="cart-total">${{ cartTotal }}</span>
+    <span class="cart-total">₦{{ cartTotal }}</span>
     <span class="cart-icon" @click="toggleCart">
       <i class="material-icons">shopping_cart</i>
     </span>
@@ -19,16 +19,16 @@
                 <!-- Column for Product Image -->
                 <div class="col s6">
                     <!-- Product Image Placeholder -->
-                    <router-link :to="'/product/' + cartItem.product_id">
+                    <router-link :to="'/product/' + cartItem.product_id" @click="closeMiniCart">
                         <img class="mini-cart-item-img" :src="getProductById(cartItem.product_id).imageUrl" alt="Product Image">
                     </router-link>
                 </div>
                 <!-- Column for Quantity x Price -->
                 <div class="col s6">
-                    <span class="right material-icons" style="margin-top: 30px" @click="removeFromCart(cartItem.product_id)">delete_forever</span>
+                    <span class="right material-icons remove-from-cart" style="margin-top: 30px" @click="removeFromCart(cartItem.product_id)">delete_forever</span>
                     <div class="left">
                         <p class="mini-cart-product-name">{{ getProductById(cartItem.product_id).name }}</p>
-                        <p class="mini-cart-product-quantity">{{ cartItem.quantity }} x ${{ getProductById(cartItem.product_id).price }}</p>
+                        <p class="mini-cart-product-quantity">{{ cartItem.quantity }} x ₦{{ getProductById(cartItem.product_id).price }}</p>
                         <!-- Display Quantity multiplied by Price for the product -->
                     </div>
                 </div>
@@ -43,14 +43,17 @@
                 <!-- Upper Row for Subtotal -->
                 <div class="col s10 right-align">
                     <!-- Display Subtotal -->
-                    <p><b>Subtotal: ${{ cartTotal }}</b></p>
+                    <p><b>Subtotal: ₦{{ cartTotal }}</b></p>
                 </div>
             </div>
             <div class="row">
                 <!-- Lower Row for Checkout Button -->
                 <div class="col s12">
                     <!-- Checkout Button -->
-                    <button class="btn waves-effect black checkout-btn">Checkout</button>
+                    <button class="btn waves-effect black checkout-btn" @click="closeMiniCart">Checkout</button>
+                    <router-link :to="'/cart'">
+                        <button class="btn waves-effect black checkout-btn" @click="closeMiniCart">Manage Cart</button>
+                    </router-link>
                 </div>
             </div>
         </div>
@@ -95,6 +98,7 @@ export default {
             return this.$store.state.cart
         }
     },
+
     methods: {
         toggleCart() {
             this.showCartContent = !this.showCartContent; // Toggle cart content on icon click
@@ -109,6 +113,10 @@ export default {
             if(deleteConfirm){
                 this.$store.dispatch('REMOVE_FROM_CART', id)
             }
+        },
+        closeMiniCart(){
+            console.log("hello")
+            this.showCartContent = false
         }
     }
 };
@@ -121,6 +129,10 @@ export default {
         align-items: center;
         position: relative;
         margin-right: 40px
+    }
+
+    .remove-from-cart:hover{
+        cursor: pointer
     }
 
     .checkout-btn{
