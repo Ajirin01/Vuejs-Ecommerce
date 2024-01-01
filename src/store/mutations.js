@@ -10,6 +10,11 @@ const mutations = {
       state.selectedProduct = state.products.find(product => product.id === productId);
     },
 
+    setCheckoutProducts(state, products) {
+      // Find the product based on productId and set it as the selected product
+      state.checkoutProducts = products
+    },
+
     addToCart(state, newItem) {
       const existingItem = state.cart.find(item => item.product_id === newItem.product_id);
   

@@ -80,7 +80,8 @@ export default createStore({
     ], // Store your products here, replace this with your actual product data
     cart: [],
     selectedProduct: null, // Store the selected product details
-    checkoutTotal: 0
+    checkoutTotal: 0,
+    checkoutProducts: []
   },
   mutations: mutations,
   actions: actions,

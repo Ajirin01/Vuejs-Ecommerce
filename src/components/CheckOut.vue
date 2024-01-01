@@ -94,7 +94,8 @@ export default {
   computed: {
     orderProducts() {
       // Assuming you have access to order details in your Vuex store or component data
-      return  this.$store.state.cart
+      console.log(this.$store.state.checkoutProducts)
+      return  this.$store.state.checkoutProducts
     },
 
     getTotalPrice() {

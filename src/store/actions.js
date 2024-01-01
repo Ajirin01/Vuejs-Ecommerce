@@ -18,6 +18,10 @@ const actions = {
 
     SET_CHECKOUT_TOTAL({ commit }, checkoutTotal) {
         commit('setCheckoutTotal', checkoutTotal);
+    },
+
+    SET_CHECKOUT_PRODUCTS({ commit }, products) {
+        commit('setCheckoutProducts', products)
     }
   
     // Other actions if needed

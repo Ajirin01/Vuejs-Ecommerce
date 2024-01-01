@@ -69,12 +69,16 @@ export default {
 
   methods: {
     calculateSubTotal(item) {
-      console.log(item)
+    //   console.log("@@@@@@@",item.product_id)
+      const selectedItems = this.cart.filter(cartItem => cartItem.selected == item.selected);
+      this.$store.dispatch('SET_CHECKOUT_PRODUCTS', selectedItems)
+        console.log(item)
     },
 
     addItemToCheckoutSelection() {
       // Perform action when 'Proceed to Checkout' button is clicked
       const selectedItems = this.cart.filter(item => item.selected);
+    //   this.$store.dispatch('selectProduct', selectedItems)
       console.log('Selected items for checkout:', selectedItems);
       // Proceed with checkout logic
     },
@@ -100,20 +104,39 @@ export default {
 };
 </script>
 
+
 <style scoped>
-    /* Add styles as needed */
+    /* Default table styles */
     table {
     width: 100%;
     border-collapse: collapse;
+    margin-bottom: 20px; /* Add margin for spacing */
     }
 
     th, td {
     border: 1px solid #ccc;
     padding: 8px;
+    text-align: left; /* Align content to the left */
     }
 
-    #quantityInput{
-        width: 50px;
-        text-align: center
+    /* Table styles for smaller screens */
+    @media (max-width: 600px) {
+        /* Hide table header */
+        table thead {
+            display: none;
+        }
+        
+        /* Set table rows to display as block elements */
+        table tr {
+            display: block;
+            margin-bottom: 10px; /* Add margin between rows */
+            border: 1px solid #ccc; /* Add border to separate rows */
+        }
+        
+        /* Style table data cells for smaller screens */
+        td {
+            display: block;
+            text-align: left; /* Align content to the left */
+        }
     }
 </style>
