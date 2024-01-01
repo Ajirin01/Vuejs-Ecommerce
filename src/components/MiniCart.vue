@@ -25,7 +25,7 @@
                 </div>
                 <!-- Column for Quantity x Price -->
                 <div class="col s6">
-                    <span class="right material-icons remove-from-cart" style="margin-top: 30px" @click="removeFromCart(cartItem.product_id)">delete_forever</span>
+                    <span class="right material-icons remove-from-cart" @click="removeFromCart(cartItem.product_id)">delete_forever</span>
                     <div class="left">
                         <p class="mini-cart-product-name">{{ getProductById(cartItem.product_id).name }}</p>
                         <p class="mini-cart-product-quantity">{{ cartItem.quantity }} x ₦{{ getProductById(cartItem.product_id).price }}</p>
@@ -131,6 +131,11 @@ export default {
         margin-right: 40px
     }
 
+    .remove-from-cart{
+        margin-top: 30px
+    }
+
+
     .remove-from-cart:hover{
         cursor: pointer
     }
@@ -184,6 +189,21 @@ export default {
         z-index: 10;
         display: block; /* Initially hidden */
         color: black
+    }
+
+    @media(max-width: 400px){
+        .cart-content{
+            width: 250px
+        }
+        .remove-from-cart{
+            margin-top: 20px
+        }
+        .mini-cart-item-img{
+            margin-top: 0px
+        }
+        .mini-cart-product-name{
+            margin-bottom: 25px
+        }
     }
 
     .cart-content.show {

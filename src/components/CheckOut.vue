@@ -110,30 +110,54 @@ export default {
     makePayment(){
         event.preventDefault()
         console.log(this.first_name, this.last_name, this.address, this.email, this.getTotalPrice, this.phone)
+        let name = this.first_name + " "+ this.last_name
         console.log(window)
         window.FlutterwaveCheckout({
             public_key: "FLWPUBK_TEST-fac2c00f396fddbc07310db113fd17c2-X",
-            // tx_ref: "titanic-48981487343MDI0NzMx",
+            tx_ref: this.generateReference,
             amount: this.getTotalPrice,
             currency: "NGN",
             payment_options: "card, mobilemoneyghana, ussd",
             redirect_url: "https://glaciers.titanic.com/handle-flutterwave-payment",
             meta: {
-            // consumer_id: 23,
+            consumer_id: 23,
             consumer_mac: "92a3-912ba-1192a",
             },
             customer: {
             email: this.email,
             phone_number: this.phone,
-            name: this.first_name + " "+ this.last_name,
+            name: name,
             },
             customizations: {
-            title: "The Titanic Store",
+            title: "Ajirinibi Vuejs Store",
             description: "Payment for an orders",
             logo: "https://www.logolynx.com/images/logolynx/22/2239ca38f5505fbfce7e55bbc0604386.jpeg",
             },
+            callback: this.paymentCallback,
+            onclose: this.closedPaymentModal,
         });
+    },
+    paymentCallback(response) {
+      // Handle payment response
+      console.log('Payment response:', response);
+    },
+    closedPaymentModal() {
+      // Handle closed payment modal
+      console.log('Payment modal closed.');
+    },
+    generateReference() {
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        const length = 10; // Adjust the length of the reference number as needed
+        let ref = '';
+
+        for (let i = 0; i < length; i++) {
+            const randomIndex = Math.floor(Math.random() * chars.length);
+            ref += chars[randomIndex];
+        }
+
+        return ref;
     }
+
   }
 };
 </script>
